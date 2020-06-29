@@ -1,0 +1,17 @@
+#!/bin/sh
+
+debpath=$1
+if [ -z "$THEOS_DEVICE_IP" ]; then 
+    echo "Please enter device IP"
+    read ip
+else
+    ip=$THEOS_DEVICE_IP
+fi
+if [ -z "$THEOS_DEVICE_PORT" ]; then
+    port=22
+else
+    port=$THEOS_DEVICE_PORT
+fi
+tmp=$(ssh -p $port root@$ip mktemp --suffix=.deb)
+scp -P $port $debpath root@$ip:$tmp
+ssh -p $port root@$ip apt-get install $tmp
