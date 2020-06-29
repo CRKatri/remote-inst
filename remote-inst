@@ -8,7 +8,8 @@ else
     ip=$THEOS_DEVICE_IP
 fi
 if [ -z "$THEOS_DEVICE_PORT" ]; then
-    port=22
+    echo "Please enter device port"
+    read port
 else
     port=$THEOS_DEVICE_PORT
 fi
